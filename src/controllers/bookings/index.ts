@@ -23,7 +23,7 @@ const addBooking = async (req: Request, res: Response): Promise<void> => {
       email: req.body.email,
       mobile: req.body.mobile,
       guests: req.body.guests,
-      seatings: req.body.seatings,
+      seating: req.body.seating,
       date: req.body.date,
     });
 
