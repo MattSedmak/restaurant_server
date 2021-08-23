@@ -6,6 +6,7 @@ const getBookings = async (req: Request, res: Response): Promise<void> => {
   try {
     const bookings: IBooking[] = await Booking.find();
     res.status(200).json({ bookings });
+    // res.send("Hello guys")
   } catch (error) {
     throw error;
   }
