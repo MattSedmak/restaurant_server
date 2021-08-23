@@ -3,10 +3,6 @@ import { model, Schema } from 'mongoose';
 
 const bookingSchema: Schema = new Schema(
   {
-    id: {
-      type: Number,
-      required: true,
-    },
     firstName: {
       type: String,
       required: true,

@@ -13,17 +13,19 @@ const getBookings = async (req: Request, res: Response): Promise<void> => {
 
 const addBooking = async (req: Request, res: Response): Promise<void> => {
   try {
-    // Try to get Pick to work...
-    // const body = req.body as Pick<IBooking, "firstName" | "lastName" | "email" | "mobile" | "guests" | "seatings" | "date">
+    const body = req.body as Pick<
+      IBooking,
+      'firstName' | 'lastName' | 'email' | 'mobile' | 'guests' | 'seating' | 'date'
+    >;
 
     const booking: IBooking = new Booking({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      mobile: req.body.mobile,
-      guests: req.body.guests,
-      seatings: req.body.seatings,
-      date: req.body.date,
+      firstName: body.firstName,
+      lastName: body.lastName,
+      email: body.email,
+      mobile: body.mobile,
+      guests: body.guests,
+      seating: body.seating,
+      date: body.date,
     });
 
     const newBooking: IBooking = await booking.save();
