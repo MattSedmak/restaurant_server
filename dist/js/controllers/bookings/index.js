@@ -18,7 +18,6 @@ const getBookings = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         const bookings = yield booking_1.default.find();
         res.status(200).json({ bookings });
-        // res.send("Hello guys")
     }
     catch (error) {
         throw error;
@@ -27,16 +26,15 @@ const getBookings = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getBookings = getBookings;
 const addBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // Try to get Pick to work...
-        // const body = req.body as Pick<IBooking, "firstName" | "lastName" | "email" | "mobile" | "guests" | "seatings" | "date">
+        const body = req.body;
         const booking = new booking_1.default({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            mobile: req.body.mobile,
-            guests: req.body.guests,
-            seatings: req.body.seatings,
-            date: req.body.date,
+            firstName: body.firstName,
+            lastName: body.lastName,
+            email: body.email,
+            mobile: body.mobile,
+            guests: body.guests,
+            seating: body.seating,
+            date: body.date,
         });
         const newBooking = yield booking.save();
         const allBookings = yield booking_1.default.find();

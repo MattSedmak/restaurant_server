@@ -2,10 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const bookingSchema = new mongoose_1.Schema({
-    id: {
-        type: Number,
-        required: true,
-    },
     firstName: {
         type: String,
         required: true,
