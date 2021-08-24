@@ -15,7 +15,14 @@ const addBooking = async (req: Request, res: Response): Promise<void> => {
   try {
     const body = req.body as Pick<
       IBooking,
-      'firstName' | 'lastName' | 'email' | 'mobile' | 'guests' | 'seating' | 'date'
+      | 'firstName'
+      | 'lastName'
+      | 'email'
+      | 'mobile'
+      | 'guests'
+      | 'seating'
+      | 'information'
+      | 'date'
     >;
 
     const booking: IBooking = new Booking({
@@ -25,6 +32,7 @@ const addBooking = async (req: Request, res: Response): Promise<void> => {
       mobile: body.mobile,
       guests: body.guests,
       seating: body.seating,
+      information: body.information,
       date: body.date,
     });
 
