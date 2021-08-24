@@ -8,5 +8,6 @@ export interface IBooking extends Document {
   mobile: number;
   guests: number;
   seating: number;
+  information: string;
   date: Date;
 }
