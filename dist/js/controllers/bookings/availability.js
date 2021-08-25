@@ -16,18 +16,24 @@ exports.getAvailability = void 0;
 const booking_1 = __importDefault(require("../../models/booking"));
 const getAvailability = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let guestTime = Number(req.query.seating);
-        const guestTimeTest = 18;
+        let seatingTime = Number(req.query.seating);
+        const seatingTimeTest = 18;
         let guestNumber = Number(req.query.guests);
         const maxBooking = 15;
-        let availableArray = [];
-        const availability = yield booking_1.default.find();
-        availability.map((available) => {
-            if (guestTimeTest === available.seating) {
-                return available;
-            }
-        });
-        res.status(200).json({ availableArray });
+        let newArray = [];
+        const selectedSeatingTime = yield booking_1.default.find();
+        let seatingTimeResults = selectedSeatingTime.filter((selected) => seatingTimeTest === selected.seating);
+        console.log(seatingTimeResults);
+        // const nDate = new Date();
+        // const count = seatingTimeResults.reduce(
+        //   (acc, cur) => (cur.date === nDate ? ++acc : acc),
+        //   0
+        // );
+        // alla results har samma tid. Vi vill räkna ut hur många objekt har samma datum.
+        // 15st === fullt.
+        // guestnumber (1-6) === 1 booking
+        // guestnumber (7-12) === 2 bokkings
+        res.status(200).json({ seatingTimeResults });
     }
     catch (error) {
         throw error;
