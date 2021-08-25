@@ -16,18 +16,17 @@ const getAvailability = async (req: Request, res: Response): Promise<void> => {
       (selected) => seatingTimeTest === selected.seating
     );
 
-    console.log(seatingTimeResults);
+    console.log('seatingTimeResults ', seatingTimeResults);
 
-    // const nDate = new Date();
-    // const count = seatingTimeResults.reduce(
-    //   (acc, cur) => (cur.date === nDate ? ++acc : acc),
-    //   0
-    // );
+    // ************* //
 
-    // alla results har samma tid. Vi vill räkna ut hur många objekt har samma datum.
-    // 15st === fullt.
-    // guestnumber (1-6) === 1 booking
-    // guestnumber (7-12) === 2 bokkings
+    // Interface { date: Date, available: boolean}
+    // Vi måste ange att en bokning med 1-6 gäster, motsvarar 1 bord. 7-12 gäster, motsvarar 2 bord.
+    // Vi måste summera antal bord som finns för ett specifikt datum
+    // OM 15 bord = available: false
+    // OM <15 = available: true
+
+    // ************* //
 
     res.status(200).json({ seatingTimeResults });
   } catch (error) {

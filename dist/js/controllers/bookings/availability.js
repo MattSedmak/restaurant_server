@@ -20,15 +20,20 @@ const getAvailability = (req, res) => __awaiter(void 0, void 0, void 0, function
         const seatingTimeTest = 18;
         let guestNumber = Number(req.query.guests);
         const maxBooking = 15;
-        let newArray = [];
         const selectedSeatingTime = yield booking_1.default.find();
         let seatingTimeResults = selectedSeatingTime.filter((selected) => seatingTimeTest === selected.seating);
-        console.log(seatingTimeResults);
-        // const nDate = new Date();
-        // const count = seatingTimeResults.reduce(
-        //   (acc, cur) => (cur.date === nDate ? ++acc : acc),
-        //   0
-        // );
+        console.log('seatingTimeResults ', seatingTimeResults);
+        // const availability: IBooking[] = await Booking.find();
+        // let table: number;
+        // availability.map((available) => {
+        //   if (seatingTimeTest === available.seating && available.guests <= 6) {
+        //     // nu har vi bara objekt i available, bara de med vald tid (18)
+        //     // available.date = 2 st datum nu (stämmer med databasen, bara 2 datum är bokade)
+        //     // console.log('test', available.date);
+        //     let numberOfTables = available.date;
+        //    // console.log(numberOfTables);
+        //   }
+        // });
         // alla results har samma tid. Vi vill räkna ut hur många objekt har samma datum.
         // 15st === fullt.
         // guestnumber (1-6) === 1 booking
