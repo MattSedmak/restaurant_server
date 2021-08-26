@@ -24,27 +24,29 @@ const getAvailability = async (req: Request, res: Response): Promise<void> => {
     let listOfDates: IAvailable[] = [];
 
     for (let i = 0; i < seatingTimeResults.length; i++) {
-      let num = seatingTimeResults[i].guests;
-      num > 6 ? (numberOfTables = 2) : numberOfTables;
-      totalNumberOfTables += numberOfTables;
+      let guests = seatingTimeResults[i].guests;
+      let oneDate = seatingTimeResults[i].date;
+      guests > 6 ? (numberOfTables = 2) : numberOfTables;
+
+      // Ta reda på om ListofDate har ett objekt som har samma date som på rad 28. 
+      const found = listOfDates.find(d => d.date.toString() === oneDate.toString())
+      
+      // Om JA, ta objekt i listOfDate och lägg på nrOfTables till IAvailable tables. 
+        if (found) {
+          found.tables += numberOfTables
+        } else {
+          // OM NEJ, skapa ett objekt 
+          listOfDates.push({
+            date: oneDate,
+            tables: numberOfTables,
+            isAvailable: true,
+          })
+        } 
+        // console.log(listOfDates)
     }
-    // console.log('totalNumberofTables: ', totalNumberOfTables);
-
-    // *** loop 2 = datum
-    for (let i = 0; i < seatingTimeResults.length; i++) {
-      let date = seatingTimeResults[i].date;
-    }
-
-    // ************* //
-
-    // Interface { date: Date, available: boolean}
-    // Vi måste ange att en bokning med 1-6 gäster, motsvarar 1 bord. 7-12 gäster, motsvarar 2 bord.
-    // Vi måste summera antal bord som finns för ett specifikt datum
-    // OM 15 bord = available: false
-    // OM <15 = available: true
-
-    // ************* //
-
+    console.log(listOfDates)
+    
+    
     res.status(200).json({ seatingTimeResults });
   } catch (error) {
     throw error;
