@@ -34,6 +34,7 @@ const addBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             mobile: body.mobile,
             guests: body.guests,
             seating: body.seating,
+            information: body.information,
             date: body.date,
         });
         const newBooking = yield booking.save();
