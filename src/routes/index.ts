@@ -18,6 +18,6 @@ router.put('/edit-booking/:id', updateBooking);
 
 router.delete('/delete-booking/:id', deleteBooking);
 
-router.get('/testroute', getAvailability)
+router.get('/availability', getAvailability);
 
 export default router;

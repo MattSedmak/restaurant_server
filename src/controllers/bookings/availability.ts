@@ -42,8 +42,6 @@ const getAvailability = async (req: Request, res: Response): Promise<void> => {
         });
       }
     }
-    console.log(listOfDates);
-
     res.status(200).json({
       message: 'Booking Availability',
       listOfDates,

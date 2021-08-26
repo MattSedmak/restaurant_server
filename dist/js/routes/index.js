@@ -8,5 +8,5 @@ router.get('/bookings', bookings_1.getBookings);
 router.post('/add-booking', bookings_1.addBooking);
 router.put('/edit-booking/:id', bookings_1.updateBooking);
 router.delete('/delete-booking/:id', bookings_1.deleteBooking);
-router.get('/testroute', availability_1.getAvailability);
+router.get('/availability', availability_1.getAvailability);
 exports.default = router;

@@ -45,7 +45,6 @@ const getAvailability = (req, res) => __awaiter(void 0, void 0, void 0, function
                 });
             }
         }
-        console.log(listOfDates);
         res.status(200).json({
             message: 'Booking Availability',
             listOfDates,
