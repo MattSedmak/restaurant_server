@@ -9,7 +9,12 @@ const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./routes"));
 const app = express_1.default();
 const PORT = process.env.PORT || 4000;
-app.use(cors_1.default());
+let corsOptions = {
+    origin: ['http://localhost:3000'],
+    credentials: true,
+    methods: ['get', 'post', 'options', 'put', 'delete'],
+};
+app.use(cors_1.default(corsOptions));
 app.use(express_1.default.json());
 app.use(routes_1.default);
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.uyvmk.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
