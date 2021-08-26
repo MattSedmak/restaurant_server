@@ -17,11 +17,9 @@ const booking_1 = __importDefault(require("../../models/booking"));
 const getAvailability = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let seatingTime = Number(req.query.seating);
-        const seatingTimeTest = 18;
         let guestNumber = Number(req.query.guests);
-        let guestNumberTest = 8;
         const selectedSeatingTime = yield booking_1.default.find();
-        let seatingTimeResults = selectedSeatingTime.filter((selected) => seatingTimeTest === selected.seating);
+        let seatingTimeResults = selectedSeatingTime.filter((selected) => seatingTime === selected.seating);
         let numberOfTables = 1;
         let requestedTables = 1;
         let listOfDates = [];
@@ -29,16 +27,17 @@ const getAvailability = (req, res) => __awaiter(void 0, void 0, void 0, function
             let guests = seatingTimeResults[i].guests;
             let oneDate = seatingTimeResults[i].date;
             guests > 6 ? (numberOfTables = 2) : numberOfTables;
-            // Ta reda på om ListofDate har ett objekt som har samma date som på rad 28. 
-            const found = listOfDates.find(d => d.date.toString() === oneDate.toString());
-            guestNumberTest > 6 ? (requestedTables = 2) : requestedTables;
-            // Om JA, ta objekt i listOfDate och lägg på nrOfTables till IAvailable tables. 
+            // Ta reda på om ListofDate har ett objekt som har samma date som på rad 28.
+            const found = listOfDates.find((d) => d.date.toString() === oneDate.toString());
+            guestNumber > 6 ? (requestedTables = 2) : requestedTables;
+            // Om JA, ta objekt i listOfDate och lägg på nrOfTables till IAvailable tables.
             if (found) {
-                found.tables += (numberOfTables + requestedTables);
-                found.tables >= 3 ? found.isAvailable = false : found.isAvailable = true;
+                found.tables += numberOfTables + requestedTables;
+                // 15 är max bord
+                found.tables > 15 ? (found.isAvailable = false) : (found.isAvailable = true);
             }
             else {
-                // OM NEJ, skapa ett objekt 
+                // OM NEJ, skapa ett objekt
                 listOfDates.push({
                     date: oneDate,
                     tables: numberOfTables,
@@ -48,8 +47,8 @@ const getAvailability = (req, res) => __awaiter(void 0, void 0, void 0, function
         }
         console.log(listOfDates);
         res.status(200).json({
-            message: "Booking Availability",
-            listOfDates
+            message: 'Booking Availability',
+            listOfDates,
         });
     }
     catch (error) {
