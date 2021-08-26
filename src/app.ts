@@ -13,17 +13,24 @@ const PORT: string | number = process.env.PORT || 4000;
 //   methods: ['get', 'post', 'options', 'put', 'delete'],
 // };
 
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
-  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader(
+//     'Access-Control-Allow-Headers',
+//     'Origin, X-Requested-With, Content-Type, Accept'
+//   );
+//   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
+//   next();
+// });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: 'https://dashboard.heroku.com/apps/thedudes-restaurant',
+    optionsSuccessStatus: 200,
+    credentials: true,
+  })
+);
+// app.use(cors());
 app.use(express.json());
 app.use(bookingRoutes);
 
