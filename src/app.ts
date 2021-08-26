@@ -7,12 +7,23 @@ const app: Express = express();
 
 const PORT: string | number = process.env.PORT || 4000;
 
-let corsOptions = {
-  origin: ['http://localhost:3000'],
-  credentials: true,
-  methods: ['get', 'post', 'options', 'put', 'delete'],
-};
-app.use(cors(corsOptions));
+// let corsOptions = {
+//   origin: ['http://localhost:3000'],
+//   credentials: true,
+//   methods: ['get', 'post', 'options', 'put', 'delete'],
+// };
+
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
+  next();
+});
+
+app.use(cors());
 app.use(express.json());
 app.use(bookingRoutes);
 
