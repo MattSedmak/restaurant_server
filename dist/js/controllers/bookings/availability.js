@@ -22,22 +22,28 @@ const getAvailability = (req, res) => __awaiter(void 0, void 0, void 0, function
         const maxBooking = 15;
         const selectedSeatingTime = yield booking_1.default.find();
         let seatingTimeResults = selectedSeatingTime.filter((selected) => seatingTimeTest === selected.seating);
-        console.log('seatingTimeResults ', seatingTimeResults);
-        // const availability: IBooking[] = await Booking.find();
-        // let table: number;
-        // availability.map((available) => {
-        //   if (seatingTimeTest === available.seating && available.guests <= 6) {
-        //     // nu har vi bara objekt i available, bara de med vald tid (18)
-        //     // available.date = 2 st datum nu (stämmer med databasen, bara 2 datum är bokade)
-        //     // console.log('test', available.date);
-        //     let numberOfTables = available.date;
-        //    // console.log(numberOfTables);
-        //   }
-        // });
-        // alla results har samma tid. Vi vill räkna ut hur många objekt har samma datum.
-        // 15st === fullt.
-        // guestnumber (1-6) === 1 booking
-        // guestnumber (7-12) === 2 bokkings
+        //  console.log('seatingTimeResults ', seatingTimeResults);
+        // *** loop 1 = tid
+        let numberOfTables = 1;
+        let totalNumberOfTables = 0;
+        let listOfDates = [];
+        for (let i = 0; i < seatingTimeResults.length; i++) {
+            let num = seatingTimeResults[i].guests;
+            num > 6 ? (numberOfTables = 2) : numberOfTables;
+            totalNumberOfTables += numberOfTables;
+        }
+        // console.log('totalNumberofTables: ', totalNumberOfTables);
+        // *** loop 2 = datum
+        for (let i = 0; i < seatingTimeResults.length; i++) {
+            let date = seatingTimeResults[i].date;
+        }
+        // ************* //
+        // Interface { date: Date, available: boolean}
+        // Vi måste ange att en bokning med 1-6 gäster, motsvarar 1 bord. 7-12 gäster, motsvarar 2 bord.
+        // Vi måste summera antal bord som finns för ett specifikt datum
+        // OM 15 bord = available: false
+        // OM <15 = available: true
+        // ************* //
         res.status(200).json({ seatingTimeResults });
     }
     catch (error) {

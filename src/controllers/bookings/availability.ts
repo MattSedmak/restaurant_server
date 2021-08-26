@@ -16,7 +16,24 @@ const getAvailability = async (req: Request, res: Response): Promise<void> => {
       (selected) => seatingTimeTest === selected.seating
     );
 
-    console.log('seatingTimeResults ', seatingTimeResults);
+    //  console.log('seatingTimeResults ', seatingTimeResults);
+
+    // *** loop 1 = tid
+    let numberOfTables: number = 1;
+    let totalNumberOfTables: number = 0;
+    let listOfDates: IAvailable[] = [];
+
+    for (let i = 0; i < seatingTimeResults.length; i++) {
+      let num = seatingTimeResults[i].guests;
+      num > 6 ? (numberOfTables = 2) : numberOfTables;
+      totalNumberOfTables += numberOfTables;
+    }
+    // console.log('totalNumberofTables: ', totalNumberOfTables);
+
+    // *** loop 2 = datum
+    for (let i = 0; i < seatingTimeResults.length; i++) {
+      let date = seatingTimeResults[i].date;
+    }
 
     // ************* //
 
