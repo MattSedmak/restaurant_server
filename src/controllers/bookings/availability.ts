@@ -42,10 +42,10 @@ const getAvailability = async (req: Request, res: Response): Promise<void> => {
         });
       }
     }
-    res.status(200).json({
-      message: 'Booking Availability',
+    res.status(200).json(
+      // message: 'Booking Availability',
       listOfDates,
-    });
+    );
   } catch (error) {
     throw error;
   }
