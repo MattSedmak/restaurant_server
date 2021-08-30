@@ -44,10 +44,7 @@ const getAvailability = async (req: Request, res: Response): Promise<void> => {
         });
       }
     }
-    res.status(200).json({
-      message: 'Booking Availability',
-      listOfDates,
-    });
+    res.status(200).json(listOfDates);
   } catch (error) {
     throw error;
   }
