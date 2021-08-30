@@ -47,10 +47,9 @@ const getAvailability = (req, res) => __awaiter(void 0, void 0, void 0, function
                 });
             }
         }
-        res.status(200).json({
-            message: 'Booking Availability',
-            listOfDates,
-        });
+        res.status(200).json(
+        // message: 'Booking Availability',
+        listOfDates);
     }
     catch (error) {
         throw error;
