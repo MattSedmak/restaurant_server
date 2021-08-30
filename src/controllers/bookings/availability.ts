@@ -21,18 +21,20 @@ const getAvailability = async (req: Request, res: Response): Promise<void> => {
     for (let i = 0; i < seatingTimeResults.length; i++) {
       let guests = seatingTimeResults[i].guests;
       let oneDate = seatingTimeResults[i].date;
-      guests > 6 ? (numberOfTables = 2) : numberOfTables;
+      guests > 6 ? (numberOfTables = 2) : (numberOfTables = 1);
 
       // Ta reda på om ListofDate har ett objekt som har samma date som på rad 28.
       const found = listOfDates.find(
         (d) => d.date.toString() === oneDate.toString()
       );
-      guestNumber > 6 ? (requestedTables = 2) : requestedTables;
+      guestNumber > 6 ? (requestedTables = 2) : (requestedTables = 1);
       // Om JA, ta objekt i listOfDate och lägg på nrOfTables till IAvailable tables.
       if (found) {
-        found.tables += numberOfTables + requestedTables;
+        found.tables += numberOfTables;
         // 15 är max bord
-        found.tables > 15 ? (found.isAvailable = false) : (found.isAvailable = true);
+        found.tables + requestedTables > 15
+          ? (found.isAvailable = false)
+          : (found.isAvailable = true);
       } else {
         // OM NEJ, skapa ett objekt
         listOfDates.push({
@@ -42,10 +44,7 @@ const getAvailability = async (req: Request, res: Response): Promise<void> => {
         });
       }
     }
-    res.status(200).json(
-      // message: 'Booking Availability',
-      listOfDates,
-    );
+    res.status(200).json(listOfDates);
   } catch (error) {
     throw error;
   }
