@@ -46,6 +46,7 @@ const addBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
     catch (error) {
+        console.log('error from add-booking');
         throw error;
     }
 });

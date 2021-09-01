@@ -45,6 +45,7 @@ const addBooking = async (req: Request, res: Response): Promise<void> => {
       bookings: allBookings,
     });
   } catch (error) {
+    console.log('error from add-booking');
     throw error;
   }
 };

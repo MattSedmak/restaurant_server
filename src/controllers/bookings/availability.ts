@@ -25,7 +25,9 @@ const getAvailability = async (req: Request, res: Response): Promise<void> => {
 
       // Ta reda på om ListofDate har ett objekt som har samma date som på rad 28.
       const found = listOfDates.find(
-        (d) => d.date.toString() === oneDate.toString()
+        (d) =>
+          d.date.toLocaleString().substring(0, 10) ===
+          oneDate.toLocaleString().substring(0, 10)
       );
       guestNumber > 6 ? (requestedTables = 2) : (requestedTables = 1);
       // Om JA, ta objekt i listOfDate och lägg på nrOfTables till IAvailable tables.
