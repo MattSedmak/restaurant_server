@@ -11,6 +11,17 @@ const getBookings = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const findBookings = async (req: Request, res: Response): Promise<void> => {
+  try {
+    let lastName: string = String(req.query.lastName)
+    const bookings: IBooking[] = await Booking.find({lastName})
+    console.log(lastName)
+    res.status(200).json({ bookings });
+  } catch (error) {
+    throw(error)
+  }
+}
+
 const addBooking = async (req: Request, res: Response): Promise<void> => {
   try {
     const body = req.body as Pick<
@@ -87,4 +98,4 @@ const deleteBooking = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { getBookings, addBooking, updateBooking, deleteBooking };
+export { getBookings, findBookings, addBooking, updateBooking, deleteBooking };
