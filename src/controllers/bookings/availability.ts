@@ -34,7 +34,7 @@ const getAvailability = async (req: Request, res: Response): Promise<void> => {
       if (found) {
         found.tables += numberOfTables;
         // 15 är max bord
-        found.tables + requestedTables > 15
+        found.tables + requestedTables >= 16
           ? (found.isAvailable = false)
           : (found.isAvailable = true);
       } else {
