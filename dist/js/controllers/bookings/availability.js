@@ -28,7 +28,8 @@ const getAvailability = (req, res) => __awaiter(void 0, void 0, void 0, function
             let oneDate = seatingTimeResults[i].date;
             guests > 6 ? (numberOfTables = 2) : (numberOfTables = 1);
             // Ta reda på om ListofDate har ett objekt som har samma date som på rad 28.
-            const found = listOfDates.find((d) => d.date.toString() === oneDate.toString());
+            const found = listOfDates.find((d) => d.date.toLocaleString().substring(0, 10) ===
+                oneDate.toLocaleString().substring(0, 10));
             guestNumber > 6 ? (requestedTables = 2) : (requestedTables = 1);
             // Om JA, ta objekt i listOfDate och lägg på nrOfTables till IAvailable tables.
             if (found) {
@@ -47,9 +48,7 @@ const getAvailability = (req, res) => __awaiter(void 0, void 0, void 0, function
                 });
             }
         }
-        res.status(200).json(
-        // message: 'Booking Availability',
-        listOfDates);
+        res.status(200).json(listOfDates);
     }
     catch (error) {
         throw error;
