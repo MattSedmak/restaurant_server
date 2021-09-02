@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteBooking = exports.updateBooking = exports.addBooking = exports.getBookings = void 0;
+exports.deleteBooking = exports.updateBooking = exports.addBooking = exports.findBookings = exports.getBookings = void 0;
 const booking_1 = __importDefault(require("../../models/booking"));
 const getBookings = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -24,6 +24,18 @@ const getBookings = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getBookings = getBookings;
+const findBookings = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let lastName = String(req.query.lastName);
+        const bookings = yield booking_1.default.find({ lastName });
+        console.log(lastName);
+        res.status(200).json({ bookings });
+    }
+    catch (error) {
+        throw (error);
+    }
+});
+exports.findBookings = findBookings;
 const addBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const body = req.body;
