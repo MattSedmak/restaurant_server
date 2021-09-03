@@ -10,7 +10,9 @@ const getEditAdmin = async (req: Request, res: Response): Promise<void> => {
     const selectedSeating: IBooking[] = await Booking.find();
 
     let selectedDateResults = selectedSeating.filter(
-      (selected) => selected.date.toLocaleString().substring(0, 9) === guestDate
+      (selected) =>
+        selected.date.toLocaleString('sv-SE').substring(0, 10) ===
+        guestDate.substring(0, 10)
     );
 
     let timeResults = selectedDateResults.filter(
@@ -19,6 +21,7 @@ const getEditAdmin = async (req: Request, res: Response): Promise<void> => {
 
     let numberOfTables: number = 1;
     let totalTables: number = 0;
+    let currentGuests: number = 0;
     let isAvailable = {
       available: true,
     };
@@ -26,13 +29,16 @@ const getEditAdmin = async (req: Request, res: Response): Promise<void> => {
     for (let i = 0; i < timeResults.length; i++) {
       let guests = timeResults[i].guests;
       guests > 6 ? (numberOfTables = 2) : (numberOfTables = 1);
+      guestNumber > 6 ? (currentGuests = 2) : (currentGuests = 1);
 
       totalTables += numberOfTables;
-
-      if (totalTables >= 15) {
+      console.log('isavailable ', isAvailable);
+      if (totalTables + currentGuests >= 15) {
+        console.log(isAvailable);
         isAvailable.available = false;
       }
     }
+    // console.log(isAvailable);
     res.status(200).json(isAvailable);
   } catch (error) {
     throw error;
