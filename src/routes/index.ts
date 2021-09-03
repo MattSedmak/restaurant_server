@@ -4,10 +4,11 @@ import {
   addBooking,
   updateBooking,
   deleteBooking,
-  findBookings
+  findBookings,
 } from '../controllers/bookings';
 
 import { getAvailability } from '../controllers/bookings/availability';
+import { getEditAdmin } from '../controllers/bookings/editAdmin';
 
 const router: Router = Router();
 
@@ -16,6 +17,8 @@ router.get('/bookings', getBookings);
 router.get('/find-booking', findBookings);
 
 router.post('/add-booking', addBooking);
+
+router.get('/edit-admin', getEditAdmin);
 
 router.put('/edit-booking/:id', updateBooking);
 
