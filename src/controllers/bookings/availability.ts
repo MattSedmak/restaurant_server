@@ -9,7 +9,6 @@ const getAvailability = async (req: Request, res: Response): Promise<void> => {
     let guestNumber: number = Number(req.query.guests);
 
     const selectedSeatingTime: IBooking[] = await Booking.find();
-
     let seatingTimeResults: IBooking[] = selectedSeatingTime.filter(
       (selected) => seatingTime === selected.seating
     );
@@ -22,23 +21,19 @@ const getAvailability = async (req: Request, res: Response): Promise<void> => {
       let guests = seatingTimeResults[i].guests;
       let oneDate = seatingTimeResults[i].date;
       guests > 6 ? (numberOfTables = 2) : (numberOfTables = 1);
+      guestNumber > 6 ? (requestedTables = 2) : (requestedTables = 1);
 
-      // Ta reda på om ListofDate har ett objekt som har samma date som på rad 28.
       const found = listOfDates.find(
         (d) =>
           d.date.toLocaleString().substring(0, 10) ===
           oneDate.toLocaleString().substring(0, 10)
       );
-      guestNumber > 6 ? (requestedTables = 2) : (requestedTables = 1);
-      // Om JA, ta objekt i listOfDate och lägg på nrOfTables till IAvailable tables.
+
       if (found) {
-        found.tables += numberOfTables;
-        // 15 är max bord
-        found.tables + requestedTables >= 16
-          ? (found.isAvailable = false)
-          : (found.isAvailable = true);
+        let tableCheck = (found.tables += numberOfTables);
+        let test = tableCheck + requestedTables;
+        test >= 16 ? (found.isAvailable = false) : (found.isAvailable = true);
       } else {
-        // OM NEJ, skapa ett objekt
         listOfDates.push({
           date: oneDate,
           tables: numberOfTables,
