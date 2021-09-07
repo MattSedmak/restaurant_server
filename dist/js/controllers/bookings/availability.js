@@ -44,7 +44,6 @@ const getAvailability = (req, res) => __awaiter(void 0, void 0, void 0, function
             }
         }
         res.status(200).json(listOfDates);
-        console.log(listOfDates);
     }
     catch (error) {
         throw error;
