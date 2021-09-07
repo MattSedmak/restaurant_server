@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteBooking = exports.updateBooking = exports.addBooking = exports.findBookings = exports.getBookings = void 0;
 const booking_1 = __importDefault(require("../../models/booking"));
+const nodemailer = require('nodemailer');
 const getBookings = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const bookings = yield booking_1.default.find();
@@ -32,7 +33,7 @@ const findBookings = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.status(200).json({ bookings });
     }
     catch (error) {
-        throw (error);
+        throw error;
     }
 });
 exports.findBookings = findBookings;
@@ -51,6 +52,27 @@ const addBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
         const newBooking = yield booking.save();
         const allBookings = yield booking_1.default.find();
+        console.log(newBooking);
+        console.log(process.env.USERMAIL);
+        const transport = nodemailer.createTransport({
+            host: 'smtp.zoho.eu',
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.USERMAIL,
+                pass: process.env.USERPASSWORD,
+            },
+        });
+        console.log(body.email);
+        yield transport.sendMail({
+            from: process.env.USERMAIL,
+            to: body.email,
+            subject: 'Bokningsbekräftelse',
+            html: `
+      <h4>Tack för din bokning ${body.lastName}</h4>
+      <p>http://localhost:4000/delete-booking/${newBooking._id}</p>
+      `,
+        });
         res.status(201).json({
             message: 'Booking added',
             booking: newBooking,

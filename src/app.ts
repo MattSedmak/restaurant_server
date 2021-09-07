@@ -4,7 +4,7 @@ import cors from 'cors';
 import bookingRoutes from './routes';
 
 const app: Express = express();
-
+console.log(process.env.USERMAIL);
 const PORT: string | number = process.env.PORT || 4000;
 
 app.use(cors());
@@ -18,8 +18,12 @@ mongoose.set('useFindAndModify', false);
 mongoose
   .connect(uri, options)
   .then(() =>
-    app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))
+    app.listen(PORT, () =>
+      console.log(`Server running on http://localhost:${PORT}`)
+    )
   )
   .catch((error) => {
-    throw error;
+    console.log(error);
   });
+
+//killall -9 node
