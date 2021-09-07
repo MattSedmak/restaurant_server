@@ -8,6 +8,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./routes"));
 const app = express_1.default();
+console.log(process.env.USERMAIL);
 const PORT = process.env.PORT || 4000;
 app.use(cors_1.default());
 app.use(express_1.default.json());
@@ -19,5 +20,6 @@ mongoose_1.default
     .connect(uri, options)
     .then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`)))
     .catch((error) => {
-    throw error;
+    console.log(error);
 });
+//killall -9 node
