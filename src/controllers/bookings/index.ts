@@ -80,7 +80,7 @@ const addBooking = async (req: Request, res: Response): Promise<void> => {
 
         <div style="margin-top:40px">
         <p style="font-style:italic;">Om du får förhinder, se till att avboka din bokning minst 2 timmar innan</p>
-        <a href="https://thedudes-restaurant.herokuapp.com/cancel/${newBooking._id}"><button style="background-color:red;color:white;padding:12px 28px;font-size:15px;border-radius:8px;">Avboka</button></a>
+        <a href="http://localhost:3000/cancel/${newBooking._id}"><button style="background-color:red;color:white;padding:12px 28px;font-size:15px;border-radius:8px;">Avboka</button></a>
         </div>
       `,
     });
