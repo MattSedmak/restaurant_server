@@ -50,8 +50,7 @@ const addBooking = async (req: Request, res: Response): Promise<void> => {
 
     const newBooking: IBooking = await booking.save();
     const allBookings: IBooking[] = await Booking.find();
-    console.log(newBooking);
-    console.log(process.env.USERMAIL);
+
     const transport = nodemailer.createTransport({
       host: 'smtp.zoho.eu',
       port: 465,
@@ -62,14 +61,27 @@ const addBooking = async (req: Request, res: Response): Promise<void> => {
       },
     });
 
-    console.log(body.email);
     await transport.sendMail({
       from: process.env.USERMAIL,
       to: body.email,
-      subject: 'Bokningsbekräftelse',
+      subject: 'Bokningsbekräftelse: 3 Dudes',
       html: `
-      <h4>Tack för din bokning ${body.lastName}</h4>
-      <p>http://localhost:4000/delete-booking/${newBooking._id}</p>
+      <h2>Tack för din bokning <strong style="text-transform: capitalize">${body.firstName} ${body.lastName}!</strong></h2>
+      
+        <h4 style="text-decoration:underline;">Bokningsinformation</h4>
+        <ul>
+        <li> <p><strong>Tid:</strong> ${body.seating}:00</p></li>
+        <li> <p><strong>Antal gäster:</strong> ${body.guests}</p></li>
+        <li> <p><strong>Datum:</strong> ${body.date}</p></li>
+        </ul>
+       
+        <h4 style="margin-top:20px">Vi ser fram emot att träffa dig!</h4>
+        <h1>3 Dude's</h1>
+
+        <div style="margin-top:40px">
+        <p style="font-style:italic;">Om du får förhinder, se till att avboka din bokning minst 2 timmar innan</p>
+        <a href="http://localhost:3000/cancel/${newBooking._id}"><button style="background-color:red;color:white;padding:12px 28px;font-size:15px;border-radius:8px;">Avboka</button></a>
+        </div>
       `,
     });
 
