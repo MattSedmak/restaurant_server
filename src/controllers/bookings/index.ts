@@ -76,7 +76,7 @@ const addBooking = async (req: Request, res: Response): Promise<void> => {
         </ul>
        
         <h4 style="margin-top:20px">Vi ser fram emot att träffa dig!</h4>
-        <h1>3 Dude's</h1>
+        <h1>The 3 Dudes</h1>
 
         <div style="margin-top:40px">
         <p style="font-style:italic;">Om du får förhinder, se till att avboka din bokning minst 2 timmar innan</p>
