@@ -27,9 +27,7 @@ const getEditAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         let numberOfTables = 1;
         let currentTables = 0;
         let newTables = 0;
-        let isAvailable = {
-            available: true,
-        };
+        let isAvailable = true;
         let totalTables = 0;
         for (let i = 0; i < timeResults.length; i++) {
             let guests = timeResults[i].guests;
@@ -47,13 +45,13 @@ const getEditAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         }
         if (foundOwnBooking) {
             if (totalTables - tablesFromCurrentBooking + newTables >= 16) {
-                isAvailable.available = false;
+                isAvailable = false;
                 foundOwnBooking = true;
             }
         }
         else {
             if (totalTables + newTables >= 16) {
-                isAvailable.available = false;
+                isAvailable = false;
             }
         }
         res.status(200).json(isAvailable);

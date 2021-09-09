@@ -25,17 +25,13 @@ const getEditAdmin = async (req: Request, res: Response): Promise<void> => {
     let currentTables: number = 0;
     let newTables: number = 0;
 
-    let isAvailable = {
-      available: true,
-    };
-
+    let isAvailable: boolean = true;
     let totalTables: number = 0;
 
     for (let i = 0; i < timeResults.length; i++) {
       let guests = timeResults[i].guests;
       guests > 6 ? (numberOfTables = 2) : (numberOfTables = 1);
       guestNumber > 6 ? (newTables = 2) : (newTables = 1);
-
       totalTables = currentTables += numberOfTables;
     }
 
@@ -51,12 +47,12 @@ const getEditAdmin = async (req: Request, res: Response): Promise<void> => {
 
     if (foundOwnBooking) {
       if (totalTables - tablesFromCurrentBooking + newTables >= 16) {
-        isAvailable.available = false;
+        isAvailable = false;
         foundOwnBooking = true;
       }
     } else {
       if (totalTables + newTables >= 16) {
-        isAvailable.available = false;
+        isAvailable = false;
       }
     }
 
